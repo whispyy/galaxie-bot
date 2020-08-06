@@ -25,7 +25,7 @@ client.on('message', msg => {
       case 'galaxie':
       case 'play':
       case 'cocotier':
-        playGalaxie(msg, arg);
+        play(msg, arg);
         break;
       case 'stop':
       case 'pause':
