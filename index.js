@@ -15,7 +15,6 @@ client.on('message', msg => {
   if (msg.content[0] == '!') {
     const args = msg.content.substring(1).split(' ');
     const cmd = args[0];
-    const arg = msg.content.substr(msg.content.indexOf(' ') + 1);
     console.log('activate:', msg.content);
 
     switch (cmd) {
@@ -25,7 +24,7 @@ client.on('message', msg => {
       case 'galaxie':
       case 'play':
       case 'cocotier':
-        play(msg, arg);
+        play(msg, args[1]);
         break;
       case 'stop':
       case 'pause':
