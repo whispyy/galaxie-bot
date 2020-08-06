@@ -15,7 +15,6 @@ client.on('message', msg => {
   if (msg.content[0] == '!') {
     const args = msg.content.substring(1).split(' ');
     const cmd = args[0];
-    const arg = msg.content.substr(msg.content.indexOf(' ') + 1);
     console.log('activate:', msg.content);
 
     switch (cmd) {
@@ -24,7 +23,8 @@ client.on('message', msg => {
         break;
       case 'galaxie':
       case 'play':
-        playGalaxie(msg, arg);
+      case 'cocotier':
+        play(msg, args[1]);
         break;
       case 'stop':
       case 'pause':
@@ -39,10 +39,10 @@ client.on('message', msg => {
 ******************/
 let connection;
 
-async function playGalaxie(message) {
+async function play(message, stream = 'https://listen.radioking.com/radio/15684/stream/29075') {
   if (message.member.voice.channel) {
     connection = await message.member.voice.channel.join();
-    connection.play('https://listen.radioking.com/radio/15684/stream/29075');
+    connection.play(stream);
   } else {
     message.channel.send('You must connect to a voice channel first');
   }
