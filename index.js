@@ -1,6 +1,7 @@
 require('dotenv').load();
 
 const Discord = require('discord.js');
+const ytdl = require('ytdl-core');
 
 const client = new Discord.Client();
 const token = process.env.DISCORD_GALAXIE_BOT_SECRET;
@@ -24,7 +25,12 @@ client.on('message', msg => {
       case 'galaxie':
       case 'play':
       case 'cocotier':
-        play(msg, args[1]);
+        playStream(msg, args[1]);
+        break;
+      case 'playYT':
+      case 'playYoutube':
+      case 'playVideo':
+        playYoutube(msg, args[1]);
         break;
       case 'stop':
       case 'pause':
@@ -39,15 +45,28 @@ client.on('message', msg => {
 ******************/
 let connection;
 
-async function play(message, stream = 'https://listen.radioking.com/radio/15684/stream/29075') {
+async function playStream(message, stream = 'https://listen.radioking.com/radio/15684/stream/29075') {
   if (message.member.voice.channel) {
     connection = await message.member.voice.channel.join();
-    connection.play(stream);
+    const dispatcher = connection.play(stream);
+
+    dispatcher.on('finish', () => connection.disconnect());
   } else {
     message.channel.send('You must connect to a voice channel first');
   }
 }
 
+async function playYoutube(message, stream = 'https://www.youtube.com/watch?v=U06jlgpMtQs') {
+  if (message.member.voice.channel) {
+    connection = await message.member.voice.channel.join();
+    const audioStream = ytdl(stream, { filter: 'audioonly' });
+    const dispatcher = connection.play(audioStream);
+
+    dispatcher.on('finish', () => connection.disconnect());
+  } else {
+    message.channel.send('You must connect to a voice channel first');
+  }
+}
 
 function stop() {
   if (connection) {
