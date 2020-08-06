@@ -1,0 +1,13 @@
+{
+  "name": "galaxie-bot",
+  "version": "1.0.0",
+  "description": "Let me play galaxie radio station",
+  "main": "index.js",
+  "author": "JF Whispyy",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.2.0",
+    "dotenv": "^6.2.0",
+    "ffmpeg-static": "^4.2.6"
+  }
+}
