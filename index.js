@@ -1,7 +1,7 @@
 require('dotenv').load();
 
 const Discord = require('discord.js');
-const ytdl = require('ytdl-core');
+const ytdl = require('ytdl-core-discord');
 
 const client = new Discord.Client();
 const token = process.env.DISCORD_GALAXIE_BOT_SECRET;
@@ -59,8 +59,7 @@ async function playStream(message, stream = 'https://listen.radioking.com/radio/
 async function playYoutube(message, stream = 'https://www.youtube.com/watch?v=U06jlgpMtQs') {
   if (message.member.voice.channel) {
     connection = await message.member.voice.channel.join();
-    const audioStream = ytdl(stream, { filter: 'audioonly' });
-    const dispatcher = connection.play(audioStream);
+    const dispatcher = connection.play(await ytdl(stream), { type: 'opus' });
 
     dispatcher.on('finish', () => connection.disconnect());
   } else {
