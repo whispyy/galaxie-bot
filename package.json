@@ -9,6 +9,6 @@
     "dotenv": "^6.2.0",
     "ffmpeg-static": "^4.2.6",
     "node-fetch": "^2.6.0",
-    "@discordjs/opus": "^0.3.2"
+    "@discordjs/opus": "0.3.1"
   }
 }
